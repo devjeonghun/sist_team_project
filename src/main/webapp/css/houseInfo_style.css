@@ -1,0 +1,10 @@
+.star_rating,
+.star_rating span{display:inline-block;overflow:hidden;height:14px;height:14px;background:transparent url(../image/ico/ico_star.gif) no-repeat}
+.star_rating{width:79px;vertical-align:middle}
+.star_rating span{background-position:0 -14px;font-size:0;line-height:0;text-indent:-100px;*text-indent:0;vertical-align:top}
+
+/* 별점 */
+
+.estimate{text-align:center;}	/* 위치 강제 설정 */
+.estimate span{margin-left:190px;}	 /* 위치 강제 설정 */
+

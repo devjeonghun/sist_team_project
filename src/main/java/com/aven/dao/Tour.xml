@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.Tour">
+	<!-- 리스트 뿌려주기용 -->
+	<select id="tourList" resultType="TourBean">
+	SELECT CT_NO, CT_TITLE, M_NO, CT_PASSWORD, CT_CONTENTS, CT_HIT, CT_REGDATE, CT_FILE
+		FROM CS_TOUR
+		ORDER BY CT_NO DESC	
+	</select>
+
+	<!-- 인포용 -->
+	<select id="tourInfo" parameterType="Integer" resultType="TourBean">
+	SELECT C.CT_NO, C.CT_TITLE, M.M_NAME, C.CT_PASSWORD, C.CT_CONTENTS,
+		C.CT_HIT, C.CT_REGDATE, C.CT_FILE
+		FROM CS_TOUR C, MEMBER M
+		WHERE C.M_NO=M.M_NO AND C.CT_NO=#{value}
+		ORDER BY C.CT_NO DESC
+	</select>
+	
+	<!-- 삭제용 -->
+	<delete id="tourDelete" parameterType="Integer">
+	DELETE FROM CS_TOUR	WHERE CT_NO=#{values}
+	</delete>
+	
+	<!-- 인서트용 -->
+	<insert id="tourInsert" parameterType="TourBean">
+	INSERT INTO CS_TOUR VALUES((SELECT MAX(ct_no)+1 FROM CS_TOUR),#{ct_title},#{m_no},#{ct_password},#{ct_contents},0,SYSDATE,#{ct_file})
+	</insert>
+	
+	<!-- 글 쓸 때 id로 no불러오기 -->
+	<select id="selectMno" parameterType="String" resultType="Integer">
+		SELECT M_NO FROM MEMBER WHERE M_ID=#{m_id}
+	</select>
+
+	<!-- 조회수 증가 -->
+	<update id="tourHit" parameterType="Integer">
+	UPDATE CS_TOUR SET CT_HIT=CT_HIT+1 WHERE CT_NO=#{value}
+	</update>
+	
+	<!-- 수정 -->
+	<update id="tourModifyInfo" parameterType="TourBean">
+	UPDATE CS_TOUR SET CT_TITLE=#{ct_title},CT_CONTENTS=#{ct_contents},CT_FILE=#{ct_file}
+		WHERE CT_NO=#{ct_no} 
+	</update>
+	
+</mapper>

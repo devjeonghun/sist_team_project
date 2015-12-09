@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.Login">
+	<select id="selectZipcode" resultType="Zipcode" parameterType="String">
+	SELECT ZIPCODE,SIDO,GUGUN,DONG,NVL(BUNJI,' ')BUNJI FROM OLDZIPCODE
+		WHERE DONG LIKE '%'||#{dong}||'%'
+	</select>
+	<select id="selectMemberBean" parameterType="String" resultType="MemberBean">
+	SELECT 
+	M_NO,M_ID,M_PASSWORD,M_NAME,M_BIRTH,M_ADDRESS,M_TEL,M_MOBILE,M_EMAIL,M_GENDER,
+	M_PASS_Q,M_PASS_A,M_REGDATE,M_GRADE,M_POINT,M_WISHLIST FROM MEMBER
+	WHERE M_EMAIL=#{m_email}	
+	</select>
+	<insert id="memberJoin" parameterType="MemberBean">
+	INSERT INTO MEMBER VALUES((select max(m_no)+1 from
+		member),#{m_id},#{m_password},#{m_name},#{m_birth},#{m_address},#{m_tel},
+		#{m_mobile},#{m_email},
+		#{m_gender},#{m_pass_q},#{m_pass_a},sysdate,'Bronze',0,0)
+	</insert>
+	<update id="updateWishList" parameterType="WishBean">
+	UPDATE MEMBER SET M_WISHLIST=#{h_no} WHERE M_ID=#{m_id}
+	</update>
+	<update id="deleteWishList" parameterType="WishBean">
+	UPDATE MEMBER SET M_WISHLIST=#{h_no} WHERE M_ID=#{m_id}
+	</update>
+	
+</mapper>

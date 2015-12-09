@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.MyPage">
+	<select id="selectMyInfo" resultType="MemberBean" parameterType="String">
+		SELECT 
+	M_NO,M_ID,M_PASSWORD,M_NAME,M_BIRTH,M_ADDRESS,M_TEL,M_MOBILE,M_EMAIL,M_GENDER,
+	M_PASS_Q,M_PASS_A,M_REGDATE,M_GRADE,M_POINT,M_WISHLIST FROM MEMBER
+	WHERE M_ID=#{m_id}	
+	</select>
+	<update id="updateMyInfo" parameterType="MemberBean">
+		UPDATE MEMBER SET
+		M_NO=#{m_no},M_ID=#{m_id},M_PASSWORD=#{m_password},M_NAME=#{m_name},
+		M_BIRTH=#{m_birth},M_ADDRESS=#{m_address},M_TEL=#{m_tel},M_MOBILE=#{m_mobile},M_EMAIL=#{m_email},
+		M_GENDER=#{m_gender},M_PASS_Q=#{m_pass_q},M_PASS_A=#{m_pass_a},M_GRADE=#{m_grade},
+		M_POINT=#{m_point}
+		WHERE M_NO= #{m_no}
+	</update>
+	<select id="selectReservation" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		select
+		AA.no,AA.hno,AA.hname,AA.rname,AA.mname,BB.R_CONCEP,TO_CHAR(AA.RS,'YY-MM-DD') RS,TO_CHAR(AA.RE,'YY-MM-DD') RE,AA.PRICE,AA.REQUEST
+		from(
+		SELECT A.HRR_NO no,A.H_NO hno,B.H_NAME hname,R_NO rname,C.M_NAME
+		mname,A.HRR_END RE,A.HRR_START RS,A.HRR_PRICE PRICE,A.HRR_REQUEST
+		REQUEST
+		FROM HOUSE_ROOM_RESERVE A,
+		(SELECT H_NAME,H_NO FROM HOUSE)B,
+		(SELECT M_NAME,M_NO FROM MEMBER)C
+		WHERE A.M_NO=#{m_no} AND A.H_NO=B.H_NO AND A.M_NO=C.M_NO
+		)AA,
+		(SELECT H_NO,R_NO,R_CONCEP FROM ROOM)BB
+		WHERE AA.hno=BB.H_NO AND AA.rname=BB.R_NO
+	</select>
+	<select id="selectReview" resultType="HouseReviewBean" parameterType="java.util.HashMap">
+		SELECT H.hr_no,H.hr_title,M.m_name,H.hr_password,H.hr_contents,H.hr_hit,H.hr_regdate,H.hr_file,H.hr_score,H.h_no,nvl(H.h_like,0) h_like 
+		FROM HOUSE_REVIEW H,MEMBER M
+		WHERE H.H_NO = 
+		(SELECT h_no FROM HOUSE_ROOM_RESERVE
+		WHERE HRR_NO = #{hrr_no} AND M_NO = #{m_no}) and H.M_NO = M.M_NO
+		ORDER BY H.hr_no DESC
+	</select>
+	<select id="writeReview" resultType="Integer" parameterType="java.util.HashMap">
+		SELECT h_no FROM HOUSE_ROOM_RESERVE
+		WHERE HRR_NO = #{hrr_no}
+	</select>
+	<select id="selectReservationDetail" resultType="PaymentBean"
+		parameterType="java.util.HashMap">
+		SELECT * FROM PAYMENT
+		WHERE HRR_NO = #{hrr_no}
+	</select>
+	
+	<insert id="insertReview" parameterType="HouseReviewBean">
+	INSERT INTO HOUSE_REVIEW VALUES 
+	((SELECT NVL(MAX(HR_NO),0)+1 FROM HOUSE_REVIEW),
+	#{hr_title},#{m_no},#{hr_password},#{hr_contents},#{hr_hit},SYSDATE,0,#{hr_score},#{h_no},#{h_like})
+	</insert>
+	<update id="updateHouseRate" parameterType="Integer">
+	UPDATE HOUSE SET H_RATE =((SELECT SUM(HR_SCORE) FROM HOUSE_REVIEW WHERE H_NO = #{h_no})/(SELECT COUNT(*) FROM HOUSE_REVIEW WHERE H_NO =#{h_no})) WHERE H_NO = #{h_no}
+	</update>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.Main">
+<select id="mainHSelect" resultType="HouseMainListBean" >
+		select * from (SELECT H_NO,H_NAME,H_CATEGORY,H_FILE,NVL(H_RATE,0)H_RATE
+		from house 
+		order by dbms_random.value)
+		where ROWNUM  <![CDATA[<=]]> 6
+	</select>
+	
+	<!-- main tour -->
+ 	<select id="mainTSelect" resultType="TourBean">
+		SELECT *
+		FROM (SELECT T.CT_NO CT_NO, T.CT_TITLE CT_TITLE, M.M_NAME M_NAME, T.CT_PASSWORD CT_PASSWORD, T.CT_CONTENTS CT_CONTENTS, T.CT_HIT CT_HIT, TO_CHAR(T.CT_REGDATE,'YYYY/MM/DD') CT_REGDATE, T.CT_FILE CT_FILE
+		FROM CS_TOUR T, MEMBER M
+		WHERE T.M_NO=M.M_NO
+		ORDER BY CT_NO DESC)
+		WHERE ROWNUM <![CDATA[<=]]> 3
+	</select>
+</mapper>

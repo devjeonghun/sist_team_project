@@ -1,0 +1,55 @@
+﻿@import url("base.css");
+@import url("content.css");
+@import url("bbs.css");
+
+/*======================================== layout ========================================*/
+/*--------------------  header --------------------*/
+#headerBgColor {height: 100px; background: url("../images/admin/header/header_bg.png") repeat-x;}
+#header {height: inherit;}
+#header .hmenu {}
+#header .hmenu li {float:left;}
+#header h1 {position: absolute; top: 30px; left: 0px;}
+
+/*-------------------- top menu --------------------*/
+#topmenu {position: absolute; top: 6px; font-size: 10px;}
+#topmenu li {padding-left: 11px; background: url("../images/admin/header/bgTopMenuSp.png") no-repeat 5px 5px;}
+#topmenu li:first-child {background: none;}
+#topmenu li a {font-weight:bold; color:#ffffff;}
+
+/*-------------------- main menu --------------------*/
+.mainmenu {position: relative; top: 30px; left: 300px; font-family: 맑은 고딕; font-size: 15px; font-weight: bold;}
+.mainmenu_li {cursor: pointer;}
+.mainmenu_li:hover {color: #FD7E00; text-decoration: none;}
+.mainmenu_li:first-child {padding-left:0px; background: none;}
+.mainmenu_a {color:#000000;}
+.mainmenu_a:hover {color: #FD7E00; text-decoration: none;}
+
+/*-------------------- content --------------------*/
+#contentBgColor{width: 100%; margin-top: 5px; float: right;}
+#content {display: inline-block; height: inherit; display: inline-block;}
+#content > div {float: left;}
+#asideWrapper {width: 170px;}
+#bodyWrapper {position: relative; width: 755px; height: inherit;}
+
+/*-------------------- footer --------------------*/
+#footerBgColor {width: 100%; height: 80px; background: #434343;clear:both;}
+#footer {width: 960px; height: 100px; margin: auto; padding: 20px;}
+#footer > p {float:left; margin-right: 100px;}
+#footer > p span {display: block; color:#969696; font-weight: bold; font-size: 11px;}
+#footer > p span:last-child {margin-top: 10px;}
+
+/*-------------------- aside --------------------*/
+#aside > h2 {padding: 45px 0 0 0; font-size: 24px; font-weight: bold; text-align: center;}
+#aside > div {margin-top: 0px;}
+#aside > div.menuSpace {margin-top: 45px; border-bottom: 2px solid #2ba1e4;}
+#aside > ul > li {padding: 13px 0 13px 0; border-bottom: 1px solid #d9d9d9;}
+#aside > ul > li:hover {background: url("../images/admin/aside/asideBar_on.png") no-repeat;}
+#aside > ul > li.selected {color:#ffffff; background: url("../images/admin/aside/asideBar_on.png") no-repeat;}
+#aside > ul > li > a {font-size: 14px; color: #434343; font-weight: bold; padding-left: 15px; }
+#aside > ul > li > a:hover {color: #ffffff; text-decoration: none;}
+#aside > ul > li > a.selected {color: #ffffff; text-decoration: none;}
+
+#aside > h3 {height: 27px; line-height: 27px; padding-left: 10px; font-size: 14px; 
+	font-weight: bold; text-shadow: 0.5px 0.5px 1px #000000;}
+#aside > h3.firstMenu { color:#ffffff; background: url("Images/bgAsideSubTitle.png") no-repeat 0px 0px;}
+

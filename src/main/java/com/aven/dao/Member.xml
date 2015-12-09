@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.Member">
+	<update id="addPoint" parameterType="Integer">
+		UPDATE MEMBER SET M_POINT=(M_POINT+100) WHERE M_NO=#{m_no}
+	</update>
+	<select id="checkPoint" parameterType="Integer" resultType="Integer">
+		SELECT M_POINT FROM MEMBER WHERE M_NO=#{m_no}
+	</select>
+	<update id="upGrade" parameterType="java.util.HashMap">
+		UPDATE MEMBER SET M_GRADE=#{m_grade} WHERE M_NO=#{m_no}
+	</update>
+</mapper>

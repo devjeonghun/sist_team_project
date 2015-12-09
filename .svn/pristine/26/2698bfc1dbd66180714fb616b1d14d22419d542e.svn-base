@@ -1,0 +1,124 @@
+@import url("layout.css");
+@import url("reset.css");
+#body {
+	position: relative;
+	padding-left: 35px;
+	padding-top: 48px;
+	color: #939393;
+	font-size: 11px;
+	font-family: µ¸¿ò;
+	margin-bottom: 50px;
+	display: inline-block;
+	width: 720px;
+}
+
+#body h2 {
+	background: url("../images/admin/body/bgSpTitle.png") no-repeat 0px 9px;
+	padding-left: 25px;
+	font-family: ¸¼Àº °íµñ;
+	font-size: 21px;
+	font-weight: bold;
+	color: #646464;
+}
+
+#body>p#step {
+	position: absolute;
+	left: 302px;
+	top: 28px;
+}
+
+#body div.space {
+	margin-bottom: 40px;
+}
+/*-----------------------------------------------------------------------------------------------------------------*/
+#body fieldset {
+	margin-top: 10px;
+	width: 720px;
+	border-top: 2px solid #2ba1e4;
+}
+
+#body fieldset input[type="text"] {
+	height: 18px;
+}
+
+#body fieldset>ul>li {
+	height: 33px;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+#body fieldset>ul>li>div {
+	float: left;
+	height: 33px;
+	line-height: 35px;
+	padding-left: 15px;
+}
+
+#body fieldset>ul>li>div>input, fieldset>ul>li>div>img {
+	vertical-align: middle;
+}
+
+#body #btnUidCheck {
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+#body #Email {
+	width: 250px;
+}
+
+#body fieldset>ul>li>div:first-child {
+	clear: left;
+	width: 155px;
+	padding-left: 0px;
+	background: #f1f1f1;
+	display: inline-block;
+	float: left;
+	text-align: center;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	height: inherit;
+	white-space: nowrap;
+}
+
+#body fieldset>ul>li#birth input {
+	width: 45px;
+}
+
+#body fieldset>ul>li#email, fieldset>ul>li#email>div {
+	height: 58px;
+}
+
+#body fieldset>ul>li#email>div:first-child+div {
+	width: 500px;
+}
+
+#body fieldset>ul>li#email>div:first-child+div>p {
+	line-height: 18px;
+}
+
+#body fieldset>ul>li#email>div:first-child+div>p:first-child {
+	margin-top: 7px;
+}
+
+#body fieldset>ul>li#address, fieldset>ul>li#address>div {
+	height: 99px;
+}
+
+#body fieldset>ul>li#address, fieldset>ul>li#address>div>p {
+	line-height: 18px;
+}
+
+#body fieldset>ul>li#address, fieldset>ul>li#address>div>p:first-child>*
+	{
+	
+}
+
+#body fieldset>ul>li#address>div:first-child+div {
+	width: 400px;
+}
+
+#body fieldset+p {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.AdminTour">
+	
+	<!--어드민 리스트 뿌리기용 -->
+	<select id="adminTourList" resultType="TourBean">
+	SELECT CT_NO, CT_TITLE, M_NO, CT_PASSWORD, CT_CONTENTS, CT_HIT, CT_REGDATE, CT_FILE
+		FROM CS_TOUR
+		ORDER BY CT_NO DESC	
+	</select>
+
+	<!--어드민 인포 페이지용 -->
+	<select id="adminTourInfo" parameterType="Integer" resultType="TourBean">
+	SELECT C.CT_NO, C.CT_TITLE, M.M_NAME, C.CT_PASSWORD, C.CT_CONTENTS,
+		C.CT_HIT, C.CT_REGDATE, C.CT_FILE
+		FROM CS_TOUR C, MEMBER M
+		WHERE C.M_NO=M.M_NO AND C.CT_NO=#{value}
+		ORDER BY C.CT_NO DESC
+	</select>
+	
+	<!-- 어드민 리스트 삭제용 -->
+	<delete id="adminTourDel" parameterType="Integer">
+	DELETE FROM CS_TOUR
+	WHERE CT_NO=#{value}
+	</delete>
+	
+</mapper>

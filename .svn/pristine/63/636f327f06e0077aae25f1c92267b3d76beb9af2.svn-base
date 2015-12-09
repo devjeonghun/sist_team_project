@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.AdminHouse">
+	<select id="selectHouseList" resultType="HouseBean" parameterType="java.util.HashMap">
+		SELECT * FROM HOUSE
+		<where>
+			<if test="h_no !=null">
+				 H_NO=#{h_no}
+			</if>
+			<if test="h_name !=null">
+				H_NAME LIKE '%'||#{h_name}||'%'
+			</if>
+			<if test="h_category !=null">
+				H_CATEGORY LIKE '%'||#{h_category}||'%'
+			</if>
+			<if test="h_address !=null">
+				H_ADDRESS LIKE '%'||#{h_address}||'%'
+			</if>
+		</where>
+		ORDER BY H_NO DESC
+	</select>
+	
+	
+	<insert id="InsertHouse" parameterType="HouseBean">
+		INSERT INTO HOUSE VALUES((SELECT MAX(H_NO)+1 FROM HOUSE),#{h_name},#{h_category},#{h_aname},#{h_email},#{h_address},#{h_tel},#{h_fileFileName},#{h_level},0,#{h_lat},#{h_long})
+	</insert>
+	
+	<update id="UpdateHouse" parameterType="HouseBean">
+		UPDATE HOUSE SET H_NAME=#{h_name}, H_CATEGORY=#{h_category}, H_ANAME=#{h_aname}, H_EMAIL=#{h_email}, H_ADDRESS=#{h_address}, H_TEL=#{h_tel}, H_FILE=#{h_fileFileName}, H_LEVEL=#{h_level}, H_LAT=#{h_lat}, H_LONG=#{h_long}
+		WHERE H_NO=#{h_no}
+	</update>
+	
+	<select id="selectH_NO" resultType="Integer">
+		SELECT MAX(H_NO) FROM HOUSE
+	</select>
+	
+	<select id="selectRoomList" resultType="RoomBean" parameterType="Integer">
+		SELECT * FROM ROOM WHERE H_NO=#{h_no}
+	</select>
+	
+	<insert id="InsertRoom" parameterType="RoomBean">
+		INSERT INTO ROOM VALUES(#{h_no}, (SELECT NVL(MAX(R_NO),0)+1 FROM ROOM WHERE H_NO=#{h_no}),#{r_concep},#{r_price},#{r_count},#{r_option},#{r_file})
+	</insert>
+	
+	<select id="selectRoomInfo" parameterType="java.util.HashMap" resultType="RoomBean">
+		SELECT * FROM ROOM WHERE H_NO=#{h_no} AND R_NO=#{r_no}
+	</select>
+	
+	<update id="UpdateRoom" parameterType="RoomBean">
+		UPDATE ROOM SET R_CONCEP=#{r_concep}, R_PRICE=#{r_price}, R_COUNT=#{r_count}, R_OPTION=#{r_option}, R_FILE=#{r_file}
+		WHERE H_NO=#{h_no} AND R_NO=#{r_no}
+	</update>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.House">
+	
+	<!-- 하우스메인 리스트 쿼리1 -->
+	<select id="hmListImg" resultType="HouseMainListBean">
+		select h_no,h_name,h_category, h_file,NVL(h_rate,0)h_rate  
+		from(select h_no,h_name,h_category, h_file,h_rate  
+		from house		
+		order by h_rate desc)
+    	where rownum <![CDATA[<=]]>9	
+	</select>
+	<!-- 하우스메인 리스트 쿼리2 -->
+	<select id="rListImg" resultType="HouseMainListBean">
+		select h_no,h_name,h_category, h_file,NVL(h_rate,0)h_rate  
+		from(select h_no,h_name,h_category, h_file,h_rate  
+		from house		
+		order by h_rate desc)
+    	where rownum <![CDATA[<=]]>4
+	</select>
+	
+	<!-- 검색부분 쿼리 -->
+	<select id="searchHouse" resultType="HouseBean" parameterType="HouseSearchBean">
+		SELECT h_no,h_name,h_category,h_aname,h_email,h_address,h_tel,h_file,h_level,nvl(h_rate,0) h_rate,h_lat,h_long
+		FROM HOUSE 
+		WHERE h_address LIKE '%'||#{keyword}||'%' AND H_NO in(
+    	select H_NO FROM HOUSE
+   		MINUS
+    	SELECT R.H_NO FROM ROOM R,(SELECT H_NO,R_NO FROM HOUSE_ROOM_RESERVE 
+		WHERE 
+		(TO_DATE(TO_char(#{hrr_start}),'YY / MM / DD') <![CDATA[<]]> HRR_START AND TO_DATE(TO_char(#{hrr_end}),'YY / MM / DD') <![CDATA[>]]> HRR_START)OR
+		(TO_DATE(TO_char(#{hrr_start}),'YY / MM / DD') <![CDATA[<]]> HRR_END AND TO_DATE(TO_char(#{hrr_end}),'YY / MM / DD') <![CDATA[>]]> HRR_END)OR
+		(TO_DATE(TO_char(#{hrr_start}),'YY / MM / DD') <![CDATA[>]]> HRR_START AND TO_DATE(TO_char(#{hrr_end}),'YY / MM / DD') <![CDATA[<]]> HRR_END)OR
+		(TO_DATE(TO_char(#{hrr_start}),'YY / MM / DD') <![CDATA[<=]]> HRR_START AND TO_DATE(TO_char(#{hrr_end}),'YY / MM / DD') <![CDATA[>=]]> HRR_END))S
+		WHERE R.H_NO = S.H_NO AND R.R_NO = S.R_NO AND R.R_COUNT <![CDATA[>=]]> #{r_count})
+		ORDER BY H_RATE DESC
+	</select>
+	
+	<select id="getHouse" parameterType="String" resultType="HouseBean">
+		SELECT h_no,h_name,h_category,h_aname,h_email,h_address,h_tel,h_file,h_level,nvl(h_rate,0) h_rate,h_lat,h_long
+		FROM HOUSE
+		WHERE H_NO = #{h_no}
+	</select>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.HouseReserve">
+<!-- 예약/결제 페이지에 사용할 room 이미지와 정보를 가져오기 위한 쿼리 -->
+	<select id="getRoomFileName" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT R.R_FILE, R.R_CONCEP, H.H_NAME, H_CATEGORY 
+		FROM ROOM R, HOUSE H
+		WHERE R.R_NO=#{r_no} AND R.H_NO=#{h_no} AND R.H_NO = H.H_NO
+	</select>
+	
+	<!-- 예약/결제 페이지에 사용할 회원정보(이름과 연락처)를 가져오는 쿼리 -->
+	<select id="getMemberInfo" parameterType="Integer" resultType="java.util.HashMap">
+		SELECT M_NAME,M_MOBILE,M_GRADE FROM MEMBER WHERE M_NO=#{m_no}
+	</select>
+	
+	<insert id="addReserveInfo" parameterType="HouseReservationBean">
+	INSERT INTO HOUSE_ROOM_RESERVE VALUES((SELECT MAX(HRR_NO) FROM HOUSE_ROOM_RESERVE)+1,#{h_no},#{r_no},#{m_no},
+	(TO_DATE(TO_char(#{hrr_start}),'YY / MM / DD')),(TO_DATE(TO_char(#{hrr_end}),'YY / MM / DD')),#{hrr_state},#{hrr_price},#{hrr_request})
+	</insert>
+</mapper>

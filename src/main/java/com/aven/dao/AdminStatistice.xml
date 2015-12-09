@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.Admin">
+	<select id="selectMonthlyReserve" parameterType="String"
+		resultType="AdminMonthlyBean">
+		SELECT
+		A.RSRV_YM
+		RSRV_YM
+		, COUNT(*) CNT
+		FROM
+		(
+		SELECT
+		TO_CHAR(HRR_START, 'YYYY-MM')
+		AS
+		RSRV_YM
+		FROM HOUSE_ROOM_RESERVE
+		WHERE
+		HRR_STATE=#{data}
+		)A
+		GROUP BY
+		A.RSRV_YM
+		ORDER BY A.RSRV_YM
+		ASC
+	</select>
+
+	<select id="selectMonthlyTotalSale" parameterType="String"
+		resultType="AdminMonthlyTotalSaleBean">
+		SELECT STARTDATE, SUM(TOTAL) TOTAL
+		FROM
+		(SELECT
+		TO_CHAR(HRR_START,'YYYY-MM')
+		STARTDATE, HRR_PRICE TOTAL
+		FROM
+		HOUSE_ROOM_RESERVE
+		WHERE HRR_STATE=#{data}
+		)
+		GROUP BY STARTDATE
+		ORDER BY
+		STARTDATE ASC
+	</select>
+	<select id="selectMonthlyCircle" resultType="AdminMonthlyCircleBean">
+		SELECT A.AGEST
+		AGEST, ((A.ACOUNT/B.ASUM)*100) PERSENT
+		FROM
+		(SELECT AGES, CASE WHEN AGES=1 THEN 10
+		WHEN AGES=2 THEN 20
+		WHEN AGES=3 THEN 30
+		WHEN AGES=4 THEN 40
+		WHEN AGES=5 THEN 50
+		WHEN AGES=6 THEN 60
+		WHEN AGES=7 THEN 70
+		WHEN AGES=8 THEN 80
+		WHEN AGES=9 THEN 90
+		END AGEST, COUNT(AGES) ACOUNT
+		FROM
+		(SELECT FLOOR((TO_CHAR(SYSDATE,'YYYY')
+		-TO_CHAR((TO_DATE(M_BIRTH,'YYYY/MM/DD')),'YYYY'))/10) AGES
+		FROM MEMBER)
+		GROUP BY AGES) A, (SELECT SUM(ACOUNT) ASUM
+		FROM
+		(SELECT COUNT(AGES) ACOUNT
+		FROM(
+		SELECT FLOOR((TO_CHAR(SYSDATE,'YYYY')
+		-TO_CHAR((TO_DATE(M_BIRTH,'YYYY/MM/DD')),'YYYY'))/10) AGES
+		FROM MEMBER)
+		GROUP BY AGES)) B
+		ORDER BY A.AGEST
+	</select>
+
+</mapper>

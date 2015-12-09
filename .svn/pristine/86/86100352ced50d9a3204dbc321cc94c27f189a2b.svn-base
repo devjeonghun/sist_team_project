@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.adminMember">
+
+	<select id="selectAdmin" parameterType="String" resultType="AdminBean">
+		SELECT * FROM ADMIN WHERE A_ID=#{a_id}
+	</select>
+	<select id="selectMember" resultType="MemberBean">
+	SELECT * FROM MEMBER
+	</select>
+	<update id="deleteMember" parameterType="MemberBean">
+	UPDATE MEMBER SET M_ID=#{m_id} WHERE M_NO=#{m_no}
+	</update>
+	
+	<select id="infoMember" parameterType="Integer" resultType="MemberBean">
+	SELECT * FROM MEMBER WHERE M_NO=#{m_no}
+	</select>
+	
+	<update id="updateMember" parameterType="MemberBean">
+	UPDATE MEMBER SET 
+		M_PASSWORD=#{m_password},M_NAME=#{m_name},M_BIRTH=#{m_birth},M_ADDRESS=#{m_address},M_EMAIL=#{m_email},
+		M_TEL=#{m_tel},M_MOBILE=#{m_mobile},M_PASS_Q=#{m_pass_q},M_PASS_A=#{m_pass_a}
+		WHERE M_ID=#{m_id}
+	</update>
+	
+	<select id="stepList" resultType="AdminBean">
+	SELECT * FROM ADMIN
+	</select>
+</mapper>

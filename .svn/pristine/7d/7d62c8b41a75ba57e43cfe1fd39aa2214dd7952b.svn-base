@@ -1,0 +1,59 @@
+﻿/*-------------------- box style --------------------*/
+.summary_box {border: 2px solid #e4e4e4;}
+.lecInfo {position: relative; border: 3px solid #d1d1d1; padding: 10px; margin-bottom: 20px;}
+.lecInfo > span {font-weight: bold;	margin-right: 10px;}
+
+/*-------------------- position --------------------*/
+.offset {position:relative;}
+
+/*-------------------- icons --------------------*/
+.icon_file {display:inline-block; padding-left:20px; text-indent:0px; height:16px; line-height:16px;
+    background:blue; vertical-align:middle; background:url("../../Shared/Images/icons.png") no-repeat -20px -5px;}
+.icon_re {display:inline-block; padding-left:20px; text-indent:0px; height:16px; line-height:16px; background:blue;
+    vertical-align:middle; background:url("../../Shared/Images/re.png") no-repeat 0px -4px;}
+
+
+
+/*-------------------- button --------------------*/
+.btn_style {vertical-align: middle; display: inline-block; border: 0px; text-indent: -999px; overflow: hidden; cursor: pointer; text-align: left;}
+.btn_search {margin-top: -5px; width: 50px; height: 23px; background: url("../images/admin/button/btnSearch.png") no-repeat 0px 0px;}
+.btn_submit {border: 0px; width: 79px; height: 32px; background: url("../images/admin/button/btnSubmit.png") no-repeat 0px 0px; text-indent: -999px; overflow: hidden;}
+
+.btn_save{width:71px; height:23px; background:url("../images/admin/button/btnSave.png") no-repeat 0px 0px;}
+.btn_question{width:71px; height:23px; background:url("../images/admin/button/btnAsk.png") no-repeat 0px 0px;}
+.btn_write{width:71px; height:23px; background:url("../images/admin/button/btnWrite.png") no-repeat 0px 0px;}
+.btn_answer{width:71px; height:23px;background:url("images/admin/button/btnAnswer.png") no-repeat 0px -46px;}*
+
+.btn_list{width:64px; height:23px; background:url("../images/admin/button/btnList.png") no-repeat 0px 0px;}
+.btn_edit{width:64px; height:23px; background:url("../images/admin/button/btnEdit.png") no-repeat 0px 0px;}
+.btn_del{width:64px; height:23px; background:url("../images/admin/button/btnDel.png") no-repeat 0px 0px;}
+.btn_cancel {width:64px; height:23px; background:url("../images/admin/button/btnCancel.png") no-repeat 0px 0px;}
+
+.btn_add{width:71px; height:23px; background:url("../images/admin/button/btnAdd.png") no-repeat 0px 0px;}
+.btn_detail{width:71px; height:23px; background:url("../images/admin/button/btnDetail.png") no-repeat 0px 0px;}
+
+.btn_prev {width:15px; height:15px; background:url("../images/admin/body/btnPrev.png") no-repeat 0px 0px;}
+.btn_next {width:15px; height:15px; background:url("../images/admin/body/btnNext.png") no-repeat 0px 0px;}
+
+.btn_yes {width: 79px; height: 32px; background: url("../images/admin/button/btnSubmit.png") no-repeat 0px 0px;}
+.btn_no {width: 79px; height: 32px; background: url("../images/admin/button/btnSubmit.png") no-repeat 0px 0px;}
+
+.vspace49 {margin-top:49px;}
+.vspace10 {margin-top:10px;}
+
+
+/*-------------------- contentBody --------------------*/
+#contentBody {position: relative; argin-bottom: 100px;}
+#content_body {position: relative; padding-left: 35px; padding-top: 48px; color: #939393; 
+	font-size: 11px; font-family: 돋움; margin-bottom: 50px; width: 720px;}
+.content_title {background: url("../images/admin/body/bgSpTitle.png") no-repeat 0px 9px; padding-left: 25px; 
+	font-family: 맑은 고딕; font-size: 21px; font-weight: bold; color: #646464;}
+.content_space {height:40px;}
+
+
+
+/*-------------------- content location --------------------*/
+.location_box {position: absolute; right: 0px; top: 57px;}
+.location_item {float: left; padding-left: 12px; background: url("../images/admin/body/bgSpPos.png") no-repeat 1px 2px; padding-top:2px;}
+.location_item:first-child {padding-left: 22px; background: url("../images/admin/body/bgSpHome.png") no-repeat 1px 0px;}
+.location_item:last-child {font-weight:bold; }

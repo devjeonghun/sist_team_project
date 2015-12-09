@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aven.dao.HouseInfo">
+	<select id="selectHouseInfo" parameterType="Integer" resultType="HouseBean">
+		SELECT * FROM HOUSE WHERE H_NO=#{h_no}
+	</select>
+	
+	<select id="roomCount" parameterType="Integer" resultType="RoomBean">
+		SELECT * FROM ROOM WHERE H_NO=#{h_no}
+	</select>
+	 
+
+	<select id="selectRnum" parameterType="java.util.HashMap" resultType="RoomBean">
+		SELECT H_NO, R_NO, R_CONCEP, R_PRICE, R_COUNT, R_OPTION, R_FILE
+			FROM(SELECT H_NO, R_NO, R_CONCEP, R_PRICE, R_COUNT, R_OPTION, R_FILE
+			FROM ROOM
+				WHERE H_NO=#{h_no}
+				ORDER BY R_NO ASC)
+		WHERE R_NO=#{order}
+	</select>
+
+
+	<select id="rnumCheck" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+	select count (*) from(
+		SELECT R_NO
+		FROM(
+		select R_NO FROM ROOM WHERE H_NO=#{h_no}
+		ORDER BY R_NO ASC) WHERE R_NO=#{order}
+   			MINUS
+    	SELECT R_NO FROM(
+    	SELECT ROWNUM RW, R.R_NO FROM ROOM R,(SELECT H_NO,R_NO FROM HOUSE_ROOM_RESERVE 
+		WHERE 
+		(TO_DATE(TO_char(#{st}),'YY / MM / DD') <![CDATA[<]]> HRR_START AND TO_DATE(TO_char(#{en}),'YY / MM / DD') <![CDATA[>]]> HRR_START)OR
+		(TO_DATE(TO_char(#{st}),'YY / MM / DD') <![CDATA[<]]> HRR_END AND TO_DATE(TO_char(#{en}),'YY / MM / DD') <![CDATA[>]]> HRR_END)OR
+		(TO_DATE(TO_char(#{st}),'YY / MM / DD') <![CDATA[>]]> HRR_START AND TO_DATE(TO_char(#{en}),'YY / MM / DD') <![CDATA[<]]> HRR_END)OR
+		(TO_DATE(TO_char(#{st}),'YY / MM / DD') <![CDATA[<=]]> HRR_START AND TO_DATE(TO_char(#{en}),'YY / MM / DD') <![CDATA[>=]]> HRR_END))S
+		WHERE R.H_NO = S.H_NO AND R.H_NO = #{h_no} AND R.R_NO = S.R_NO
+		ORDER BY R.R_NO ASC
+		)WHERE R_NO=#{order}
+	)
+	</select>
+	
+	<select id="reviewList" parameterType="Integer" resultType="HouseReviewBean">
+		SELECT HR_NO, HR_TITLE, M_NO, HR_HIT, HR_REGDATE, HR_SCORE, H_LIKE
+		FROM HOUSE_REVIEW
+		WHERE H_NO=#{h_no}
+	</select>
+	
+	<select id="reviewListInfo" parameterType="Integer" resultType="HouseReviewBean">
+		SELECT HR_NO, HR_TITLE, M.M_NO, HR_CONTENTS, M_NAME, HR_HIT, HR_REGDATE, HR_FILE, HR_SCORE, H_LIKE
+		FROM HOUSE_REVIEW HR, MEMBER M
+		WHERE HR_NO=#{hr_no} AND M.M_NO=HR.M_NO
+	</select>
+	
+	<select id="updateRHit" parameterType="Integer">
+		UPDATE HOUSE_REVIEW SET HR_HIT=HR_HIT+1
+		WHERE HR_NO=#{hr_no}
+	</select>
+	
+	<select id="updateRLike" parameterType="Integer">
+		UPDATE HOUSE_REVIEW SET H_LIKE=H_LIKE+1
+		WHERE HR_NO=#{hr_no}
+	</select>
+	
+</mapper>

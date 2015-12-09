@@ -1,0 +1,55 @@
+﻿
+.bg_hl{background: #f5f5f5;}
+.split {background: url("images/admin/body/bgSpTab.png") no-repeat 0px 10px;}
+.search_box {text-align: right;}
+.search_input {height: 20px; width: 150px; border: 1px solid #2ba1e4;}
+.bbs_box {margin-top: 10px; width: 720px; border-top: 2px solid #2ba1e4;}
+.bbs_row {height: 30px; line-height: 30px; border-bottom: 1px solid #e9e9e9;}
+.bbs_detail_row {background:#f1f1f1; height:30px; line-height:30px; border-bottom:1px double #d1d1d1;}
+.bbs_field_row {height: 33px; line-height: 33px; border-bottom: 1px solid #e9e9e9;}
+.bbs_cell {display: inline-block; float: left; text-align: center; text-overflow: ellipsis; overflow: hidden; height: inherit; white-space: nowrap;}
+.bbs_field_cell {background: #f5f5f5; width: 155px;}
+.bbs_data_cell {width: 565px; text-align: left; text-indent: 15px;}
+.bbs_data_half_cell {text-align: left; width: 200px; text-indent: 15px;}
+.bbs_row_content {margin: 15px; width: 690px; min-height: 170px; border-bottom: 1px solid #e9e9e9; position: relative;}
+.bbs_content_size {height: 300px;}
+.indent {text-indent:15px;}
+
+/*---------- notice list ----------*/
+.bbs_col_seq {width:60px;}
+.bbs_col_title {width:400px;}
+.bbs_col_writer {width:100px;}
+.bbs_col_regdate {width:100px;}
+.bbs_col_hit {width:60px;}
+
+/*---------- user list ----------*/
+.bbs_col_uid {width:120px;}
+.bbs_col_name {width:100px;}
+.bbs_col_nick {width:160px;}
+.bbs_col_email {width:240px;}
+.bbs_col_Authority {width:100px;}
+
+
+.bbs_col_ver {width: 360px;}
+.bbs_col_300 {width: 300px;}
+.bbs_col_200 {width: 200px;}
+.bbs_col_100 {width: 100px;}
+.bbs_col_80 {width: 80px;}
+
+.bbs_pager_box {margin-top: 10px; text-align: right;}
+
+.vspace49 {margin-top: 49px;}
+.vspace10 {margin-top: 10px;}
+
+.bbs_input {vertical-align: middle;}
+.form_ver {display: inline-block; width: 300px; position: absolute; right: 0px;}
+.input_ver {width: 50px;}
+.input_title {width: 500px;}
+.input_title_1 {width: 150px;}
+.filename {margin-right:30px; width:180px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;}
+
+
+/*-------------------- pager --------------------*/
+.pager_box {height: 15px;}
+.pager {display: inline-block; height: inherit; line-height: 17px;}
+.pager_num {float: left; margin-left: 3px; margin-right: 3px;}
